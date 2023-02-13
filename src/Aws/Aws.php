@@ -17,10 +17,10 @@ class Aws
 
     public function __construct()
     {
-        if (is_null(self::$instance) || !self::$instance instanceof Client) {
+        if (is_null(self::$instance) || !self::$instance instanceof S3Client) {
             self::$instance = (new S3Client([
                 'version'                 => $this->version,
-                'region'                  => $this->regioon,
+                'region'                  => $this->region,
                 'endpoint'                => $this->endpoint,
                 'credentials'             => $this->credentials,
                 'use_path_style_endpoint' => $this->use_path_style_endpoint,
@@ -102,5 +102,15 @@ class Aws
         ]);
 
         return $keys;
+    }
+
+    public function __get($key)
+    {
+        return $this->$key ?? config('jdzx.Aws.' . $key);
+    }
+
+    public function __set($key, $value)
+    {
+        $this->$key = $value;
     }
 }
