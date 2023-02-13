@@ -28,7 +28,12 @@ class Aws
         }
     }
 
-    public function multipleStoragePhoto($request, string $field = 'uploadFile')
+    /**
+     * @param $request
+     * @param String $field
+     * @return array|string
+     */
+    public function multipleStoragePhoto($request, String $field = 'uploadFile')
     {
         $files = $request->file($field);
 
