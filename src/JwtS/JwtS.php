@@ -48,11 +48,11 @@ class JwtS
     {
         $token       = array(
             "iat"  => time(),
-            "nbf"  => time() + env('jwt.nbf', 0),
-            "exp"  => time() + env('jwt.exp_time', 7200), //token 过期时间
+            "nbf"  => time() + $this->nbf,
+            "exp"  => time() + $this->exp_time, //token 过期时间
             'data' => $data//可以用户ID，可以自定义
         ); //Payload
-        $this->token = JWT::encode($token, env('jwt.KEY', '2XkKZqeqeyZ0mVW'), env('jwt.alg', 'HS256'), $this->kid); //此处行进加密算法生成jwt
+        $this->token = JWT::encode($token, $this->key, $this->alg, $this->kid); //此处行进加密算法生成jwt
         return $this->token;
     }
 
@@ -71,7 +71,7 @@ class JwtS
             }
             JWT::$leeway = 20;//当前时间减去60，把时间留点余地
 
-            $decoded = JWT::decode($decodeToken, new Key(env('jwt.KEY', '2XkKZqeqeyZ0mVW'), 'HS256')); //HS256方式，这里要和签发的时候对应
+            $decoded = JWT::decode($decodeToken, new Key($this->key, $this->alg)); //HS256方式，这里要和签发的时候对应
             return $decoded->data;
 
         } catch (SignatureInvalidException $e) {  //签名不正确

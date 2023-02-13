@@ -10,7 +10,12 @@ return [
     'ApiSign' => [
         'timeReduce' => 115, // 时间误差，如果超出误差，签名失效
     ],
-    'JwtS'    => [],
+    'JwtS'    => [
+        'nbf'      => env('jwt.nbf', 0),
+        'exp_time' => env('jwt.exp_time', 7200),
+        'key' => env('jwt.KEY', '2XkKZqeqeyZ0mVW'),
+        'alg' => env('jwt.alg', 'HS256'),
+    ],
     'FastDfs' => [
         'baseUrl' => env('DFS.baseUrl', 'http://uploads.c.jiaodong.cn/'),     //服务器基地址
     ],
