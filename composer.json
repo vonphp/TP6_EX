@@ -1,0 +1,27 @@
+{
+    "name": "jdzx/jdzx",
+    "description": "胶东在线专用",
+    "authors": [
+        {
+            "name": "fly",
+            "email": "fly@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2 || ^8.0",
+        "predis/predis": "^1.1",
+        "firebase/php-jwt": "^6.2",
+        "aws/aws-sdk-php": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "jdzx\\": "src"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "JDzx\\JdConfig\\JdConfig::addConfig"
+        ]
+    },
+    "license": "MIT"
+}
