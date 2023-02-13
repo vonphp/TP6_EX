@@ -70,6 +70,7 @@ class Aws
     /**
      * 删除图片
      * @param $url
+     * @return mixed
      */
     public function deletePhoto($url)
     {
@@ -87,12 +88,11 @@ class Aws
      * 删除多张图片
      * @param $urls
      */
-    public function deletePhotos(array $urls = [])
+    public function deletePhotos(array $urls = []): array
     {
         $s3   = self::$instance;
-        $keys = array();
+        $keys = [];
         foreach ($urls as $url) {
-
             $keys[] = array('Key' => strrchr($url, '/'));
         }
 
