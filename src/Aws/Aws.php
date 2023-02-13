@@ -9,7 +9,7 @@ use Aws\S3\S3Client;
  * Class Aws
  * @package jdzx\aws
  * @author: Fly
- * @describe: 单例 一次请求中所有出现jwt的地方都是一个用户
+ * @describe:
  */
 class Aws
 {
