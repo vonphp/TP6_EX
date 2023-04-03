@@ -27,10 +27,10 @@ abstract class Cache_Redis
     {
         if (is_null(self::$instance) || !self::$instance instanceof Client) {
             self::$instance = (new Client([
-                'scheme' => $this->scheme,
-                'host'   => $this->host,
-                'port'   => $this->port,
-                'username'   => $this->user,
+                'scheme'    => $this->scheme,
+                'host'      => $this->host,
+                'port'      => $this->port,
+                'username'  => $this->user,
             ]));
         }
         self::$instance->auth($this->auth);
