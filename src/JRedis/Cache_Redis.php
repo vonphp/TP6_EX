@@ -30,6 +30,7 @@ abstract class Cache_Redis
                 'scheme' => $this->scheme,
                 'host'   => $this->host,
                 'port'   => $this->port,
+                'username'   => $this->user,
             ]));
         }
         self::$instance->auth($this->auth);

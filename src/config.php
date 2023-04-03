@@ -4,6 +4,7 @@ return [
         'scheme'   => 'tcp',
         'host'     => env('CACHE.host', '127.0.0.1'),
         'port'     => env('CACHE.port', '6379'),
+        'user'     => env('CACHE.USERNAME', 'root'),
         'auth'     => env('CACHE.password', ''),
         'database' => env('CACHE.select', 1),
     ],
