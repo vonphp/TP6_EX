@@ -16,7 +16,6 @@ abstract class Cache_Redis
     const VERSION         = 6;
 
     static protected $instance;
-    static public    $Predis;
 
     public function __construct()
     {
