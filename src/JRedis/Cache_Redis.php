@@ -9,6 +9,7 @@ use Predis\Client;
  */
 abstract class Cache_Redis
 {
+
     const LOCK_SUCCESS    = 'OK';
     const NOT_EXIST       = 'NX';
     const EXPIRE_TIME     = 'PX';
