@@ -7,6 +7,7 @@ return [
         'user'     => env('CACHE.USERNAME', 'root'),
         'auth'     => env('CACHE.password', ''),
         'database' => env('CACHE.select', 1),
+        'version' => env('CACHE.version', 3),
     ],
     'ApiSign' => [
         'timeReduce' => 115, // 时间误差，如果超出误差，签名失效

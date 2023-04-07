@@ -9,13 +9,14 @@ use Predis\Client;
  */
 abstract class Cache_Redis
 {
-    const LOCK_SUCCESS = 'OK';
-    const NOT_EXIST = 'NX';
-    const EXPIRE_TIME = 'PX';
+    const LOCK_SUCCESS    = 'OK';
+    const NOT_EXIST       = 'NX';
+    const EXPIRE_TIME     = 'PX';
     const RELEASE_SUCCESS = 1;
+    const VERSION         = 6;
 
     static protected $instance;
-    static public $Predis;
+    static public    $Predis;
 
     public function __construct()
     {
@@ -26,21 +27,44 @@ abstract class Cache_Redis
     protected function _openCacheConn()
     {
         if (is_null(self::$instance) || !self::$instance instanceof Client) {
-            self::$instance = (new Client([
-                'scheme'    => $this->scheme,
-                'host'      => $this->host,
-                'port'      => $this->port,
-                'username'  => $this->user,
-            ]));
+            if ($this->version >= self::VERSION) {
+                $this->V6();
+            } else {
+                $this->V3();
+            }
         }
-        self::$instance->auth($this->auth);
-        self::$instance->select(intval($this->database));
+
+        if ($this->version < self::VERSION) {
+            self::$instance->auth($this->auth);
+            self::$instance->select(intval($this->database));
+        }
+    }
+
+    private function V6()
+    {
+        self::$instance = (new Client([
+            'host'     => $this->host,
+            'password' => $this->auth,
+            'port'     => $this->port,
+            'scheme'   => $this->scheme,
+            'username' => $this->user,
+            'database' => $this->database,
+        ]));
+    }
+
+    private function V3()
+    {
+        self::$instance = (new Client([
+            'scheme' => $this->scheme,
+            'host'   => $this->host,
+            'port'   => $this->port,
+        ]));
     }
 
     /**
      * 尝试获取锁(加锁)
-     * @param $key   string 键
-     * @param $token string 请求id
+     * @param $key    string 键
+     * @param $token  string 请求id
      * @param $exTime int 过期时间（毫秒）
      * @return bool 是否加锁成功
      */
@@ -52,7 +76,7 @@ abstract class Cache_Redis
     /**
      * 解锁
      * @param string $lock_key 锁
-     * @param string $token 请求id
+     * @param string $token    请求id
      * @return bool 解锁
      */
     public function unlock(string $lock_key, string $token): bool
@@ -62,9 +86,9 @@ abstract class Cache_Redis
 
     /**
      * 尝试获取锁
-     * @param String $key 锁
+     * @param String $key       锁
      * @param String $requestId 请求id
-     * @param int $exTime 过期时间（毫秒）
+     * @param int    $exTime    过期时间（毫秒）
      * @return bool                 是否获取成功
      */
     public static function tryGetLock(string $key, string $requestId, int $exTime): bool
