@@ -81,7 +81,7 @@ class ApiSign
 
         ksort($param, SORT_STRING);
 
-        $sortedParamString = http_build_query($param);
+        $sortedParamString = urldecode(http_build_query($param));
 
         return strtoupper(md5($sortedParamString));
     }
