@@ -7,7 +7,7 @@ return [
         'user'     => env('CACHE.USERNAME', 'root'),
         'auth'     => env('CACHE.password', ''),
         'database' => env('CACHE.select', 1),
-        'version' => env('CACHE.version', 3),
+        'version'  => env('CACHE.version', 3),
     ],
     'ApiSign' => [
         'timeReduce' => 115, // 时间误差，如果超出误差，签名失效
@@ -15,8 +15,8 @@ return [
     'JwtS'    => [
         'nbf'      => env('jwt.nbf', 0),
         'exp_time' => env('jwt.exp_time', 7200),
-        'key' => env('jwt.KEY', '2XkKZqeqeyZ0mVW'),
-        'alg' => env('jwt.alg', 'HS256'),
+        'key'      => env('jwt.KEY', '2XkKZqeqeyZ0mVW'),
+        'alg'      => env('jwt.alg', 'HS256'),
     ],
     'FastDfs' => [
         'baseUrl' => env('DFS.baseUrl', 'http://uploads.c.jiaodong.cn/'),     //服务器基地址
@@ -35,5 +35,5 @@ return [
         'Ses'                     => [
             'region' => env('AWS_SES_REGION', 'cn-north-1'),
         ],
-    ]
+    ],
 ];
